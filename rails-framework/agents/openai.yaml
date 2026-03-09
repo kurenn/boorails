@@ -1,0 +1,3 @@
+interface:
+  display_name: "Rails Framework"
+  short_description: "Core operating model for Rails AI workflows"

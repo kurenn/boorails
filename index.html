@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rails Forge // AI-Native Development Framework</title>
+    <meta
+      name="description"
+      content="Rails Forge is a hacking-inspired framework to diagnose, secure, and accelerate Ruby on Rails development."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="scanline" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <p>RAILS.FORGE // STATUS: <span class="status">ONLINE</span></p>
+      <p>MODE: SAFE + FAST + FUN</p>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <p class="badge">SYSTEM INIT</p>
+        <h1>
+          CUT THROUGH
+          <span class="flicker">RAILS COMPLEXITY.</span>
+          SHIP FEATURES THAT SURVIVE.
+        </h1>
+        <p class="lead">
+          A hacking-inspired development playbook for Ruby on Rails teams:
+          diagnose faster, enforce quality gates, and deliver with confidence.
+        </p>
+        <div class="actions">
+          <a href="#framework" class="btn btn-primary">EXECUTE: FRAMEWORK</a>
+          <a href="#stack" class="btn btn-ghost">OPEN: TOOLING STACK</a>
+        </div>
+      </section>
+
+      <section class="terminal" data-reveal>
+        <div class="terminal-head">
+          <span>claude-code :: session rails-forge</span>
+          <span id="clock">00:00:00</span>
+        </div>
+        <div class="terminal-body">
+          <p class="log">
+            <span class="time">12:44:10</span>
+            <span class="tag thinking">THINKING</span>
+            <span class="log-text">Need console output that mirrors assistant execution, not shell scripts.</span>
+          </p>
+          <p class="log">
+            <span class="time">12:44:12</span>
+            <span class="tag call">TOOL_CALL</span>
+            <span class="log-text">exec_command { cmd: "rg --files && sed -n 1,220p index.html" }</span>
+          </p>
+          <p class="log">
+            <span class="time">12:44:16</span>
+            <span class="tag result">TOOL_RESULT</span>
+            <span class="log-text">exec_command exit_code=0; parsed_files=3; mismatch=gem_like_console</span>
+          </p>
+          <p class="log">
+            <span class="time">12:44:20</span>
+            <span class="tag edit">EDIT</span>
+            <span class="log-text">apply_patch -> index.html, styles.css, script.js (claude_style_console)</span>
+          </p>
+          <p class="log">
+            <span class="time">12:44:24</span>
+            <span class="tag verify">VERIFICATION</span>
+            <span class="log-text">node --check script.js -> pass; visual flow aligned to thinking/tool_result cadence</span>
+          </p>
+          <p class="live-line" id="live-line"></p>
+        </div>
+      </section>
+
+      <section class="framework" id="framework">
+        <div class="section-head" data-reveal>
+          <p class="kicker">FRAMEWORK DEFINITION</p>
+          <h2>RAILS FORGE PROTOCOL</h2>
+          <p>
+            One core framework + focused skills. Every cycle produces findings,
+            safer alternatives, and validation evidence.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card" data-reveal>
+            <p class="code">PHASE.01</p>
+            <h3>INSPECT</h3>
+            <p>Read architecture, conventions, boundaries, and hot paths before touching code.</p>
+          </article>
+          <article class="card" data-reveal>
+            <p class="code">PHASE.02</p>
+            <h3>DIAGNOSE</h3>
+            <p>Find root causes: N+1, unsafe params, callback leaks, flaky specs, deploy risks.</p>
+          </article>
+          <article class="card" data-reveal>
+            <p class="code">PHASE.03</p>
+            <h3>DESIGN</h3>
+            <p>Return primary approach + alternatives with tradeoffs in speed, risk, and maintainability.</p>
+          </article>
+          <article class="card" data-reveal>
+            <p class="code">PHASE.04</p>
+            <h3>IMPLEMENT</h3>
+            <p>Deliver convention-first Rails code: thin controllers, explicit boundaries, safe migrations.</p>
+          </article>
+          <article class="card" data-reveal>
+            <p class="code">PHASE.05</p>
+            <h3>VERIFY</h3>
+            <p>Run quality gates: tests, static checks, security scans, and performance regressions.</p>
+          </article>
+          <article class="card" data-reveal>
+            <p class="code">PHASE.06</p>
+            <h3>IMPROVE</h3>
+            <p>Capture lessons into reusable skills and scripts to make the next cycle faster.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="stack" id="stack">
+        <div class="section-head" data-reveal>
+          <p class="kicker">SKILL STACK</p>
+          <h2>COMMANDS THAT HIT REAL PAIN</h2>
+        </div>
+        <div class="stack-list">
+          <div data-reveal>
+            <p class="command">rails-diagnose</p>
+            <p>Fast root-cause analysis for performance, architecture, and bug patterns.</p>
+          </div>
+          <div data-reveal>
+            <p class="command">rails-quality-gates</p>
+            <p>Single gate for tests, style, security, and production-readiness checks.</p>
+          </div>
+          <div data-reveal>
+            <p class="command">rails-implementation-safety</p>
+            <p>Pre-merge checklists to block unsafe code paths and migration accidents.</p>
+          </div>
+          <div data-reveal>
+            <p class="command">rails-alternatives</p>
+            <p>Returns solution options with explicit cost/risk/performance tradeoffs.</p>
+          </div>
+          <div data-reveal>
+            <p class="command">rails-performance-audit</p>
+            <p>Tracks query pressure, cache misses, and background job bottlenecks.</p>
+          </div>
+          <div data-reveal>
+            <p class="command">rails-fun-dx</p>
+            <p>Optimizes developer joy: shorter loops, clearer feedback, less toil.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="decision" data-reveal>
+        <div>
+          <p class="kicker">DEPLOY_IF</p>
+          <ul>
+            <li>You want enterprise-grade safety without enterprise drag.</li>
+            <li>You need speed but refuse fragile shortcuts.</li>
+            <li>You want Rails workflows that feel sharp and enjoyable.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="kicker abort">ABORT_IF</p>
+          <ul>
+            <li>You only want cargo-cult code generation.</li>
+            <li>You ignore tests, security, and migration safety.</li>
+            <li>You optimize for volume over code health.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>RAILS FORGE // <span id="year"></span> // BUILT FOR SAFE + FUN DELIVERY</p>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Rails Implementation Safety"
+  short_description: "Pre-merge safety checklist for Rails changes"

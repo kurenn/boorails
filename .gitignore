@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Runtime artifacts
+tmp/
+*.log
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Editor
+.vscode/
+.idea/

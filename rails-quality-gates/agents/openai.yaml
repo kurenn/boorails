@@ -1,0 +1,3 @@
+interface:
+  display_name: "Rails Quality Gates"
+  short_description: "Release-readiness checks for Rails delivery"

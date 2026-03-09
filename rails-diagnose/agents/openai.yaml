@@ -1,0 +1,3 @@
+interface:
+  display_name: "Rails Diagnose"
+  short_description: "Root-cause diagnosis for Rails bugs and regressions"
