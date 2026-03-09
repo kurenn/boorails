@@ -151,13 +151,50 @@ footer {
 
 .topbar-link {
   color: var(--neon-cyan);
+  position: relative;
+  display: inline-block;
   text-decoration: none;
   border-bottom: 1px dotted color-mix(in srgb, var(--neon-cyan), transparent 48%);
-  transition: color 140ms ease;
+  transition:
+    color 120ms steps(2, end),
+    text-shadow 120ms steps(2, end),
+    transform 120ms steps(2, end),
+    filter 120ms steps(2, end);
+  will-change: transform, text-shadow, filter;
+}
+
+.topbar-link::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: -3px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--neon-red), transparent 20%),
+    color-mix(in srgb, var(--neon-cyan), transparent 12%)
+  );
+  opacity: 0;
+  transform: scaleX(0.78) skewX(-8deg);
 }
 
 .topbar-link:hover {
-  color: color-mix(in srgb, var(--neon-cyan), white 24%);
+  color: color-mix(in srgb, var(--neon-cyan), white 30%);
+  text-shadow:
+    -2px 0 color-mix(in srgb, var(--neon-red), transparent 8%),
+    2px 0 color-mix(in srgb, var(--neon-cyan), transparent 10%),
+    0 0 16px color-mix(in srgb, var(--neon-red), transparent 36%);
+  transform: translateX(1px) skewX(-2deg);
+  filter: hue-rotate(-18deg) saturate(1.24);
+  animation:
+    haunt-link-jitter 260ms steps(2, end) infinite,
+    haunt-link-flicker 560ms steps(2, end) infinite;
+}
+
+.topbar-link:hover::after {
+  opacity: 1;
+  animation: haunt-link-underline 380ms steps(2, end) infinite;
 }
 
 .topbar-link:focus-visible {
