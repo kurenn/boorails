@@ -1,0 +1,3 @@
+interface:
+  display_name: "Rails Security"
+  short_description: "Deep appsec audit for Rails (XSS/SQLi/CSRF/uploads/commands)"
