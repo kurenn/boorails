@@ -35,7 +35,7 @@
         </h1>
         <p class="lead">
           BooRails gives you a script-first Rails workflow: execute the framework,
-          see gem/bootstrap status, run safety + quality gates, and ship with confidence.
+          see gem/bootstrap status, run security + safety + quality gates, and ship with confidence.
         </p>
         <p class="ghost-note">Subtle anomaly cues enabled. Hacker signal stays clean.</p>
         <div class="actions">
@@ -63,7 +63,7 @@
           <p class="log">
             <span class="time">12:44:16</span>
             <span class="tag result">TOOL_RESULT</span>
-            <span class="log-text">gem_bootstrap=WARN target=8 present=6 installed=2 failed=0; diagnose=PASS safety=WARN gates=FAIL</span>
+            <span class="log-text">gem_bootstrap=WARN target=8 present=6 installed=2 failed=0; diagnose=PASS security=PASS safety=WARN gates=FAIL</span>
           </p>
           <p class="log">
             <span class="time">12:44:20</span>
@@ -116,7 +116,7 @@
           </div>
           <div data-reveal>
             <p class="command">STEP 4 // VERIFY OUTPUT</p>
-            <p>Look for <code>Execution Summary (Framework Workflow)</code> and open <code>tmp/rails-framework-workflow-*/00-summary.md</code>.</p>
+            <p>Look for <code>Execution Summary (Framework Workflow)</code> and verify <code>02-security.md</code>, <code>03-safety.md</code>, and <code>04-quality-gates.md</code> in <code>tmp/rails-framework-workflow-*/</code>.</p>
           </div>
         </div>
       </section>
@@ -172,11 +172,15 @@
         <div class="stack-list">
           <div data-reveal>
             <p class="command">rails-framework</p>
-            <p>Script-first orchestration: Diagnose -> Safety -> Quality Gates + consolidated summary.</p>
+            <p>Script-first orchestration: Diagnose -> Security -> Safety -> Quality Gates + consolidated summary.</p>
           </div>
           <div data-reveal>
             <p class="command">rails-diagnose</p>
             <p>Fast root-cause analysis for performance, architecture, and bug patterns.</p>
+          </div>
+          <div data-reveal>
+            <p class="command">rails-security</p>
+            <p>Deep appsec audit for XSS, SQL injection, CSRF, upload abuse, and command injection.</p>
           </div>
           <div data-reveal>
             <p class="command">rails-quality-gates</p>
