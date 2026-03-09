@@ -1,6 +1,6 @@
-# Rails Skills Toolkit
+# BooRails
 
-A local set of AI skills for safer, faster Ruby on Rails development.
+BooRails is a local set of AI skills for safer, faster Ruby on Rails development.
 
 ## Before Running Any Skill (Recommended)
 
