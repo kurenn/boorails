@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2026-03-08
+
+### Changed
+- Rebranded project docs/site surface from Rails Forge to BooRails.
+
+### Added
+- GitHub Pages custom domain file (`CNAME`) for `boorails.dev`.
+
+
 ## [0.1.0] - 2026-03-08
 
 ### Added
