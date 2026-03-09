@@ -32,8 +32,25 @@ Strict mode (fails if LSP is not enabled):
 
 ## Install Skills
 
+First-time install:
 ```bash
 ./install_skills_codex_claude.sh --target both
+```
+
+One-liner (clone + install for Codex and Claude):
+```bash
+bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; git -C "$REPO" pull --ff-only origin main; "$REPO"/install_skills_codex_claude.sh --target both --force'
+```
+
+Update existing installs:
+
+```bash
+./update_skills.sh
+```
+
+One-liner update (pull + reinstall):
+```bash
+bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; "$REPO"/update_skills.sh --repo-dir "$REPO"'
 ```
 
 ## Smoke Checks
