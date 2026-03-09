@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BooRails // AI-Native Development Framework</title>
+    <title>BooRails // Script-First Rails Skills</title>
     <meta
       name="description"
-      content="BooRails is a hacking-inspired framework to diagnose, secure, and accelerate Ruby on Rails development."
+      content="BooRails is a script-first Rails skills toolkit with framework execution, gem bootstrap feedback, and release-ready quality checks."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,25 +21,26 @@
     <div class="scanline" aria-hidden="true"></div>
 
     <header class="topbar">
-      <p>BOORAILS // STATUS: <span class="status">ONLINE</span></p>
-      <p>MODE: SAFE + FAST + FUN</p>
+      <p>BOORAILS // STATUS: <span class="status">ONLINE</span> <span class="status-ghost">SPECTER: LOW</span></p>
+      <p>MODE: SCRIPT-FIRST + SAFE + FUN // <a class="topbar-link" href="https://github.com/kurenn/boorails" target="_blank" rel="noreferrer">GITHUB</a></p>
     </header>
 
     <main>
       <section class="hero" id="top">
-        <p class="badge">SYSTEM INIT</p>
+        <p class="badge">SYSTEM INIT // BOO LAYER: ON</p>
         <h1>
           CUT THROUGH
-          <span class="flicker">RAILS COMPLEXITY.</span>
-          SHIP FEATURES THAT SURVIVE.
+          <span class="flicker" data-text="RAILS PANIC."><span class="flicker-core">RAILS PANIC.</span></span>
+          SHIP FEATURES THAT PASS EVERY GATE.
         </h1>
         <p class="lead">
-          A hacking-inspired development playbook for Ruby on Rails teams:
-          diagnose faster, enforce quality gates, and deliver with confidence.
+          BooRails gives you a script-first Rails workflow: execute the framework,
+          see gem/bootstrap status, run safety + quality gates, and ship with confidence.
         </p>
+        <p class="ghost-note">Subtle anomaly cues enabled. Hacker signal stays clean.</p>
         <div class="actions">
           <a href="#framework" class="btn btn-primary">EXECUTE: FRAMEWORK</a>
-          <a href="#stack" class="btn btn-ghost">OPEN: TOOLING STACK</a>
+          <a href="#run" class="btn btn-ghost">OPEN: HOW TO RUN</a>
         </div>
       </section>
 
@@ -52,29 +53,71 @@
           <p class="log">
             <span class="time">12:44:10</span>
             <span class="tag thinking">THINKING</span>
-            <span class="log-text">Need console output that mirrors assistant execution, not shell scripts.</span>
+            <span class="log-text">User invoked /rails-framework. Execute workflow script first and return 00-summary.md.</span>
           </p>
           <p class="log">
             <span class="time">12:44:12</span>
             <span class="tag call">TOOL_CALL</span>
-            <span class="log-text">exec_command { cmd: "rg --files && sed -n 1,220p index.html" }</span>
+            <span class="log-text">exec_command { cmd: "bash rails-framework/scripts/run_framework_workflow.sh --project-dir $PWD --mode strict --gemset full" }</span>
           </p>
           <p class="log">
             <span class="time">12:44:16</span>
             <span class="tag result">TOOL_RESULT</span>
-            <span class="log-text">exec_command exit_code=0; parsed_files=3; mismatch=gem_like_console</span>
+            <span class="log-text">gem_bootstrap=WARN target=8 present=6 installed=2 failed=0; diagnose=PASS safety=WARN gates=FAIL</span>
           </p>
           <p class="log">
             <span class="time">12:44:20</span>
             <span class="tag edit">EDIT</span>
-            <span class="log-text">apply_patch -> index.html, styles.css, script.js (claude_style_console)</span>
+            <span class="log-text">apply_patch -> framework script summary includes gem target/present/installed/failed counters</span>
           </p>
           <p class="log">
             <span class="time">12:44:24</span>
             <span class="tag verify">VERIFICATION</span>
-            <span class="log-text">node --check script.js -> pass; visual flow aligned to thinking/tool_result cadence</span>
+            <span class="log-text">summary_path=tmp/rails-framework-workflow-*/00-summary.md; install/update one-liners documented</span>
+          </p>
+          <p class="log">
+            <span class="time">12:44:26</span>
+            <span class="tag specter">SPECTER</span>
+            <span class="log-text">boo_signal=stable; ambiance=haunted_low; workflow_integrity=unchanged</span>
           </p>
           <p class="live-line" id="live-line"></p>
+        </div>
+      </section>
+
+      <section class="stack" id="run">
+        <div class="section-head" data-reveal>
+          <p class="kicker">RUN BOOK</p>
+          <h2>HOW TO RUN BOORAILS</h2>
+          <p>
+            Use these exact steps. If you only type <code>/rails-framework</code> without script execution, you may only load instructions.
+          </p>
+        </div>
+        <div class="stack-list">
+          <div data-reveal>
+            <p class="command">STEP 1 // INSTALL OR UPDATE</p>
+            <div class="cmd-box">
+              <code id="cmd-install-update">bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; "$REPO"/update_skills.sh --repo-dir "$REPO"'</code>
+              <button class="copy-btn" type="button" data-copy-target="cmd-install-update" aria-label="Copy install/update command" title="Copy command">⧉</button>
+            </div>
+          </div>
+          <div data-reveal>
+            <p class="command">STEP 2 // OPEN RAILS ROOT</p>
+            <div class="cmd-box">
+              <code id="cmd-open-root">cd /path/to/your/rails_app && export ENABLE_LSP_TOOL=1</code>
+              <button class="copy-btn" type="button" data-copy-target="cmd-open-root" aria-label="Copy rails root command" title="Copy command">⧉</button>
+            </div>
+          </div>
+          <div data-reveal>
+            <p class="command">STEP 3 // RUN FRAMEWORK SCRIPT</p>
+            <div class="cmd-box">
+              <code id="cmd-run-framework">bash "$HOME/.boorails/rails-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp</code>
+              <button class="copy-btn" type="button" data-copy-target="cmd-run-framework" aria-label="Copy framework run command" title="Copy command">⧉</button>
+            </div>
+          </div>
+          <div data-reveal>
+            <p class="command">STEP 4 // VERIFY OUTPUT</p>
+            <p>Look for <code>Execution Summary (Framework Workflow)</code> and open <code>tmp/rails-framework-workflow-*/00-summary.md</code>.</p>
+          </div>
         </div>
       </section>
 
@@ -83,8 +126,8 @@
           <p class="kicker">FRAMEWORK DEFINITION</p>
           <h2>BOORAILS PROTOCOL</h2>
           <p>
-            One core framework + focused skills. Every cycle produces findings,
-            safer alternatives, and validation evidence.
+            One core framework + focused skills. Every run reports findings,
+            alternatives, validation evidence, and gem bootstrap status.
           </p>
         </div>
         <div class="grid">
@@ -124,9 +167,13 @@
       <section class="stack" id="stack">
         <div class="section-head" data-reveal>
           <p class="kicker">SKILL STACK</p>
-          <h2>COMMANDS THAT HIT REAL PAIN</h2>
+          <h2>WHAT RUNS INSIDE THE FRAMEWORK</h2>
         </div>
         <div class="stack-list">
+          <div data-reveal>
+            <p class="command">rails-framework</p>
+            <p>Script-first orchestration: Diagnose -> Safety -> Quality Gates + consolidated summary.</p>
+          </div>
           <div data-reveal>
             <p class="command">rails-diagnose</p>
             <p>Fast root-cause analysis for performance, architecture, and bug patterns.</p>
@@ -144,10 +191,6 @@
             <p>Returns solution options with explicit cost/risk/performance tradeoffs.</p>
           </div>
           <div data-reveal>
-            <p class="command">rails-performance-audit</p>
-            <p>Tracks query pressure, cache misses, and background job bottlenecks.</p>
-          </div>
-          <div data-reveal>
             <p class="command">rails-fun-dx</p>
             <p>Optimizes developer joy: shorter loops, clearer feedback, less toil.</p>
           </div>
@@ -159,14 +202,14 @@
           <p class="kicker">DEPLOY_IF</p>
           <ul>
             <li>You want enterprise-grade safety without enterprise drag.</li>
-            <li>You need speed but refuse fragile shortcuts.</li>
+            <li>You need speed but still require explicit execution summaries.</li>
             <li>You want Rails workflows that feel sharp and enjoyable.</li>
           </ul>
         </div>
         <div>
           <p class="kicker abort">ABORT_IF</p>
           <ul>
-            <li>You only want cargo-cult code generation.</li>
+            <li>You only want prompts without actually running scripts.</li>
             <li>You ignore tests, security, and migration safety.</li>
             <li>You optimize for volume over code health.</li>
           </ul>
@@ -175,7 +218,7 @@
     </main>
 
     <footer>
-      <p>BOORAILS // <span id="year"></span> // BUILT FOR SAFE + FUN DELIVERY</p>
+      <p>BOORAILS // <span id="year"></span> // BUILT FOR SAFE + FUN DELIVERY // <a class="footer-link" href="https://github.com/kurenn/boorails" target="_blank" rel="noreferrer">GITHUB</a></p>
     </footer>
 
     <script src="./script.js"></script>

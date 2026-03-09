@@ -11,6 +11,11 @@ REQUIRE_LSP=0
 AUTO_INSTALL_GEMS=1
 GEMSET="full"
 GEM_DRY_RUN=0
+FRAMEWORK_GEMS_STATUS="NOT_RUN"
+FRAMEWORK_GEMS_TARGET_COUNT=0
+FRAMEWORK_GEMS_PRESENT_COUNT=0
+FRAMEWORK_GEMS_INSTALL_COUNT=0
+FRAMEWORK_GEMS_FAIL_COUNT=0
 
 if [ -t 1 ] && [ "${NO_COLOR:-}" != "1" ]; then
   C_RESET="\033[0m"
@@ -78,6 +83,7 @@ bootstrap_framework_gems() {
   local log_file="$2"
   local records=""
   local actions=""
+  local total_count=0
   local present_count=0
   local install_count=0
   local fail_count=0
@@ -85,6 +91,12 @@ bootstrap_framework_gems() {
   local gem_name=""
   local gem_group=""
   local gem_reason=""
+
+  FRAMEWORK_GEMS_STATUS="NOT_RUN"
+  FRAMEWORK_GEMS_TARGET_COUNT=0
+  FRAMEWORK_GEMS_PRESENT_COUNT=0
+  FRAMEWORK_GEMS_INSTALL_COUNT=0
+  FRAMEWORK_GEMS_FAIL_COUNT=0
 
   if [ "$AUTO_INSTALL_GEMS" -eq 0 ]; then
     FRAMEWORK_GEMS_STATUS="SKIPPED"
@@ -136,6 +148,7 @@ EOF
   : >"$log_file"
   while IFS='|' read -r gem_name gem_group gem_reason; do
     [ -z "$gem_name" ] && continue
+    total_count=$((total_count + 1))
     if gem_declared "$gem_name"; then
       present_count=$((present_count + 1))
       actions="${actions}- \`${gem_name}\` already present (${gem_reason})"$'\n'
@@ -164,12 +177,17 @@ EOF
   fi
 
   FRAMEWORK_GEMS_STATUS="$status"
+  FRAMEWORK_GEMS_TARGET_COUNT="$total_count"
+  FRAMEWORK_GEMS_PRESENT_COUNT="$present_count"
+  FRAMEWORK_GEMS_INSTALL_COUNT="$install_count"
+  FRAMEWORK_GEMS_FAIL_COUNT="$fail_count"
   {
     echo "# Framework Gem Bootstrap"
     echo
     echo "- Status: $status"
     echo "- Gemset: $GEMSET"
     echo "- Dry run: $GEM_DRY_RUN"
+    echo "- Target gems: $total_count"
     echo "- Present: $present_count"
     echo "- Installed/Planned: $install_count"
     echo "- Failed: $fail_count"
@@ -411,6 +429,10 @@ fi
   echo "## Step Results"
   echo
   echo "- Gem Bootstrap: $gems_status ([report]($(basename "$GEMS_REPORT")))"
+  echo "  - Target gems: $FRAMEWORK_GEMS_TARGET_COUNT"
+  echo "  - Present: $FRAMEWORK_GEMS_PRESENT_COUNT"
+  echo "  - Installed/Planned: $FRAMEWORK_GEMS_INSTALL_COUNT"
+  echo "  - Failed: $FRAMEWORK_GEMS_FAIL_COUNT"
   echo "- Diagnose: $diag_status ([report]($(basename "$DIAG_REPORT")))"
   echo "- Implementation Safety: $safe_status ([report]($(basename "$SAFE_REPORT")))"
   echo "- Quality Gates: $gates_status ([report]($(basename "$GATES_REPORT")))"
@@ -430,6 +452,10 @@ fi
 printf "\n"
 log_info "Execution Summary (Framework Workflow)"
 printf "  - Gem bootstrap:        %s\n" "$gems_status"
+printf "  - Gem target count:     %s\n" "$FRAMEWORK_GEMS_TARGET_COUNT"
+printf "  - Gems already present: %s\n" "$FRAMEWORK_GEMS_PRESENT_COUNT"
+printf "  - Gems installed/plan:  %s\n" "$FRAMEWORK_GEMS_INSTALL_COUNT"
+printf "  - Gems failed install:  %s\n" "$FRAMEWORK_GEMS_FAIL_COUNT"
 printf "  - Diagnose:             %s\n" "$diag_status"
 printf "  - Implementation safety:%s\n" "$safe_status"
 printf "  - Quality gates:        %s\n" "$gates_status"

@@ -1,105 +1,145 @@
 # BooRails
 
-BooRails is a local set of AI skills for safer, faster Ruby on Rails development.
+Script-first Ruby on Rails skills for safer shipping, faster diagnosis, and cleaner delivery.
 
-## Before Running Any Skill (Recommended)
+> **Quick start (install):**
+> `bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; git -C "$REPO" pull --ff-only origin main; "$REPO"/install_skills_codex_claude.sh --target both --force'`
 
-Enable LSP in the shell where you launch Claude/Codex:
+## Why BooRails?
 
-```bash
-export ENABLE_LSP_TOOL=1
-```
+Most AI workflows stop at suggestions. BooRails is built to execute the Rails workflow end-to-end and return evidence.
 
-Why this matters:
+- Script-first framework execution (`Diagnose -> Safety -> Quality Gates`)
+- Explicit execution summary and report files
+- Gem bootstrap feedback (target/present/installed/failed)
+- LSP-aware guidance for stronger symbol-level analysis
 
-- Better symbol navigation and code-intel quality.
-- More accurate cross-file analysis and refactor safety.
-- Higher confidence in diagnose, safety, and quality-gate results.
+## What's Included
 
-If you want strict enforcement, run skills with `--require-lsp`.
+### Core Framework
 
-## Quick Preflight
+- `rails-framework`: orchestrates workflow, gem bootstrap, and consolidated summary.
 
-```bash
-./scripts/check_lsp_env.sh
-```
+### 5 Supporting Skills
 
-Strict mode (fails if LSP is not enabled):
+| Skill | What it does |
+|------|---------------|
+| `rails-diagnose` | Root-cause heuristics for reliability/performance smells |
+| `rails-implementation-safety` | Safety checks for risky patterns and migrations |
+| `rails-quality-gates` | Tests/lint/security/smoke gates with pass/warn/fail |
+| `rails-alternatives` | Structured option/tradeoff evaluation |
+| `rails-fun-dx` | Developer experience and loop-speed improvements |
 
-```bash
-./scripts/check_lsp_env.sh --required
-```
+## Installation
 
-## Install Skills
+### One-liner (Recommended)
 
-First-time install:
-```bash
-./install_skills_codex_claude.sh --target both
-```
-
-One-liner (clone + install for Codex and Claude):
 ```bash
 bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; git -C "$REPO" pull --ff-only origin main; "$REPO"/install_skills_codex_claude.sh --target both --force'
 ```
 
-Update existing installs:
+### Manual
+
+```bash
+git clone https://github.com/kurenn/boorails.git "$HOME/.boorails"
+cd "$HOME/.boorails"
+./install_skills_codex_claude.sh --target both --force
+```
+
+## Update
+
+### One-liner update (pull + reinstall)
+
+```bash
+bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; "$REPO"/update_skills.sh --repo-dir "$REPO"'
+```
+
+### Local update command
 
 ```bash
 ./update_skills.sh
 ```
 
-One-liner update (pull + reinstall):
+## Run Skills (Clear Path)
+
+### 1) Open your Rails app root
+
 ```bash
-bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; "$REPO"/update_skills.sh --repo-dir "$REPO"'
+cd /path/to/your/rails_app
 ```
 
-## Smoke Checks
+### 2) Enable LSP (recommended)
 
-Run local smoke checks before release:
+```bash
+export ENABLE_LSP_TOOL=1
+```
+
+Optional preflight:
+
+```bash
+bash "$HOME/.boorails/scripts/check_lsp_env.sh" --required
+```
+
+### 3) In Claude/Codex, run this prompt
+
+> `/rails-framework` alone loads instructions; it may not execute scripts by itself.
+> Use this prompt to force execution:
+
+```text
+Use rails-framework and run:
+bash "$HOME/.boorails/rails-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp
+Then show the generated tmp/rails-framework-workflow-*/00-summary.md path and key findings.
+```
+
+### 4) Terminal-only (no chat prompt)
+
+```bash
+bash "$HOME/.boorails/rails-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp
+```
+
+### 5) What success looks like
+
+Outputs are written to:
+
+- `tmp/rails-framework-workflow-<timestamp>/00-framework-gems.md`
+- `tmp/rails-framework-workflow-<timestamp>/01-diagnose.md`
+- `tmp/rails-framework-workflow-<timestamp>/02-safety.md`
+- `tmp/rails-framework-workflow-<timestamp>/03-quality-gates.md`
+- `tmp/rails-framework-workflow-<timestamp>/00-summary.md`
+
+You should also see this block in console:
+
+- `Execution Summary (Framework Workflow)`
+- `Gem bootstrap`
+- `Gem target count / present / installed / failed`
+- `Diagnose / Implementation safety / Quality gates / Overall`
+
+## Run Individual Skills (Optional)
+
+```bash
+bash "$HOME/.boorails/rails-diagnose/scripts/run_diagnose.sh" --project-dir "$PWD" --require-lsp
+bash "$HOME/.boorails/rails-implementation-safety/scripts/safety_check.sh" --project-dir "$PWD" --require-lsp
+bash "$HOME/.boorails/rails-quality-gates/scripts/run_gates.sh" --project-dir "$PWD" --require-lsp
+```
+
+## Gem Bootstrap Modes
+
+- Default: installs missing gems (`--gemset full`)
+- Core-only: `--gemset minimal`
+- Dry-run only: `--gem-dry-run`
+- Disable install: `--no-auto-install-gems`
+
+## Smoke Checks
 
 ```bash
 ./scripts/ci_smoke.sh
 ```
 
-## Framework Workflow Example
+## Supported Tools
 
-```bash
-rails-framework/scripts/run_framework_workflow.sh --project-dir /path/to/rails-app --require-lsp
-```
+- Claude Code
+- Codex
 
-If you trigger `/rails-framework` inside Claude/Codex, explicitly ask it to execute the script (not just reason from instructions):
+## License
 
-```text
-Use rails-framework and run:
-bash "/Users/abrahamkuri/workspace/workspace/rails skills/rails-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp
-Then show tmp/rails-framework-workflow-*/00-summary.md
-```
-
-By default, `rails-framework` auto-installs missing framework gems before executing Diagnose/Safety/Gates.
-
-- Default gemset (`full`): `rubocop`, `rubocop-rails`, `brakeman`, `rspec-rails`, `rubocop-rspec`, `bullet`, `strong_migrations`, `ruby-lsp`
-- Core-only gemset (`minimal`): `rubocop`, `rubocop-rails`, `brakeman`
-
-Opt-out and dry-run:
-
-```bash
-rails-framework/scripts/run_framework_workflow.sh --no-auto-install-gems
-rails-framework/scripts/run_framework_workflow.sh --gem-dry-run --gemset full
-```
-
-## Multi-App Setup
-
-For multiple Rails projects, prefer per-project environment setup (for example with `direnv`):
-
-```bash
-# .envrc
-export ENABLE_LSP_TOOL=1
-```
-
-Then `direnv allow` in each app.
-
-## Claude Prompt Example
-
-```text
-Use rails-framework. Inspect the whole Rails project first (app/, config/, db/, lib/, spec/) and return architecture map, top risks, and prioritized next actions.
-```
+MIT. See [LICENSE](LICENSE).
