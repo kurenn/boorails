@@ -9,7 +9,7 @@ Script-first Ruby on Rails skills for safer shipping, faster diagnosis, and clea
 
 Most AI workflows stop at suggestions. BooRails is built to execute the Rails workflow end-to-end and return evidence.
 
-- Script-first framework execution (`Diagnose -> Safety -> Quality Gates`)
+- Script-first framework execution (`Diagnose -> Security -> Safety -> Quality Gates`)
 - Explicit execution summary and report files
 - Gem bootstrap feedback (target/present/installed/failed)
 - LSP-aware guidance for stronger symbol-level analysis
@@ -20,11 +20,12 @@ Most AI workflows stop at suggestions. BooRails is built to execute the Rails wo
 
 - `rails-framework`: orchestrates workflow, gem bootstrap, and consolidated summary.
 
-### 5 Supporting Skills
+### 6 Supporting Skills
 
 | Skill | What it does |
 |------|---------------|
 | `rails-diagnose` | Root-cause heuristics for reliability/performance smells |
+| `rails-security` | Deep appsec audit for XSS/SQLi/CSRF/uploads/command risks |
 | `rails-implementation-safety` | Safety checks for risky patterns and migrations |
 | `rails-quality-gates` | Tests/lint/security/smoke gates with pass/warn/fail |
 | `rails-alternatives` | Structured option/tradeoff evaluation |
@@ -103,8 +104,9 @@ Outputs are written to:
 
 - `tmp/rails-framework-workflow-<timestamp>/00-framework-gems.md`
 - `tmp/rails-framework-workflow-<timestamp>/01-diagnose.md`
-- `tmp/rails-framework-workflow-<timestamp>/02-safety.md`
-- `tmp/rails-framework-workflow-<timestamp>/03-quality-gates.md`
+- `tmp/rails-framework-workflow-<timestamp>/02-security.md`
+- `tmp/rails-framework-workflow-<timestamp>/03-safety.md`
+- `tmp/rails-framework-workflow-<timestamp>/04-quality-gates.md`
 - `tmp/rails-framework-workflow-<timestamp>/00-summary.md`
 
 You should also see this block in console:
@@ -112,12 +114,13 @@ You should also see this block in console:
 - `Execution Summary (Framework Workflow)`
 - `Gem bootstrap`
 - `Gem target count / present / installed / failed`
-- `Diagnose / Implementation safety / Quality gates / Overall`
+- `Diagnose / Security audit / Implementation safety / Quality gates / Overall`
 
 ## Run Individual Skills (Optional)
 
 ```bash
 bash "$HOME/.boorails/rails-diagnose/scripts/run_diagnose.sh" --project-dir "$PWD" --require-lsp
+bash "$HOME/.boorails/rails-security/scripts/run_security_audit.sh" --project-dir "$PWD" --require-lsp
 bash "$HOME/.boorails/rails-implementation-safety/scripts/safety_check.sh" --project-dir "$PWD" --require-lsp
 bash "$HOME/.boorails/rails-quality-gates/scripts/run_gates.sh" --project-dir "$PWD" --require-lsp
 ```

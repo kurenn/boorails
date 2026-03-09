@@ -86,10 +86,11 @@ Always end execution with:
 Use specialized skills when needed:
 
 1. Root-cause unclear: invoke `rails-diagnose`.
-2. Release readiness needed: invoke `rails-quality-gates`.
-3. Security/data safety concerns: invoke `rails-implementation-safety`.
-4. Architectural choice needed: invoke `rails-alternatives`.
-5. Developer friction or slow loop: invoke `rails-fun-dx`.
+2. Deep appsec review needed: invoke `rails-security`.
+3. Release readiness needed: invoke `rails-quality-gates`.
+4. Security/data safety concerns: invoke `rails-implementation-safety`.
+5. Architectural choice needed: invoke `rails-alternatives`.
+6. Developer friction or slow loop: invoke `rails-fun-dx`.
 
 ## Scripted Orchestration
 
@@ -121,8 +122,9 @@ Extended (`--gemset full`, default):
 The workflow executes:
 
 1. `rails-diagnose/scripts/run_diagnose.sh`
-2. `rails-implementation-safety/scripts/safety_check.sh`
-3. `rails-quality-gates/scripts/run_gates.sh`
+2. `rails-security/scripts/run_security_audit.sh`
+3. `rails-implementation-safety/scripts/safety_check.sh`
+4. `rails-quality-gates/scripts/run_gates.sh`
 
 Outputs are written to `tmp/rails-framework-workflow-<timestamp>/` with per-step reports and a consolidated summary.
 

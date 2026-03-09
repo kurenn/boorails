@@ -37,8 +37,9 @@ Usage: run_framework_workflow.sh [options]
 
 Run the Rails Framework workflow:
   1) Diagnose
-  2) Implementation Safety
-  3) Quality Gates
+  2) Security Audit
+  3) Implementation Safety
+  4) Quality Gates
 
 Options:
   --project-dir DIR      Rails project root (default: current directory)
@@ -286,10 +287,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILLS_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 DIAG_SCRIPT="$SKILLS_ROOT/rails-diagnose/scripts/run_diagnose.sh"
+SEC_SCRIPT="$SKILLS_ROOT/rails-security/scripts/run_security_audit.sh"
 SAFE_SCRIPT="$SKILLS_ROOT/rails-implementation-safety/scripts/safety_check.sh"
 GATES_SCRIPT="$SKILLS_ROOT/rails-quality-gates/scripts/run_gates.sh"
 
-for required in "$DIAG_SCRIPT" "$SAFE_SCRIPT" "$GATES_SCRIPT"; do
+for required in "$DIAG_SCRIPT" "$SEC_SCRIPT" "$SAFE_SCRIPT" "$GATES_SCRIPT"; do
   if [ ! -f "$required" ]; then
     log_err "Missing required script: $required"
     exit 2
@@ -325,13 +327,15 @@ if command -v git >/dev/null 2>&1; then
 fi
 
 DIAG_REPORT="$OUTPUT_DIR/01-diagnose.md"
-SAFE_REPORT="$OUTPUT_DIR/02-safety.md"
-GATES_REPORT="$OUTPUT_DIR/03-quality-gates.md"
+SEC_REPORT="$OUTPUT_DIR/02-security.md"
+SAFE_REPORT="$OUTPUT_DIR/03-safety.md"
+GATES_REPORT="$OUTPUT_DIR/04-quality-gates.md"
 GEMS_REPORT="$OUTPUT_DIR/00-framework-gems.md"
 GEMS_LOG="$OUTPUT_DIR/00-framework-gems.log"
 
 gems_status="SKIPPED"
 diag_status="NOT_RUN"
+sec_status="NOT_RUN"
 safe_status="NOT_RUN"
 gates_status="NOT_RUN"
 
@@ -350,11 +354,13 @@ else
 fi
 
 diag_cmd=(bash "$DIAG_SCRIPT" --project-dir "$PROJECT_DIR" --mode "$MODE" --output-file "$DIAG_REPORT")
+sec_cmd=(bash "$SEC_SCRIPT" --project-dir "$PROJECT_DIR" --mode "$MODE" --output-file "$SEC_REPORT")
 safe_cmd=(bash "$SAFE_SCRIPT" --project-dir "$PROJECT_DIR" --mode "$MODE" --output-file "$SAFE_REPORT")
 gates_cmd=(bash "$GATES_SCRIPT" --project-dir "$PROJECT_DIR" --mode "$MODE" --output-file "$GATES_REPORT")
 
 if [ "$REQUIRE_LSP" -eq 1 ]; then
   diag_cmd+=(--require-lsp)
+  sec_cmd+=(--require-lsp)
   safe_cmd+=(--require-lsp)
   gates_cmd+=(--require-lsp)
 fi
@@ -372,7 +378,7 @@ fi
 if [ "$MODE" = "strict" ] && [ "$gems_status" = "FAIL" ]; then
   log_err "Stopping workflow because gem bootstrap failed in strict mode."
 else
-  log_info "Step 1/3: Diagnose"
+  log_info "Step 1/4: Diagnose"
   if "${diag_cmd[@]}"; then
     diag_status="PASS"
     log_ok "Diagnose completed."
@@ -381,7 +387,16 @@ else
     log_err "Diagnose returned non-zero."
   fi
 
-  log_info "Step 2/3: Implementation Safety"
+  log_info "Step 2/4: Security Audit"
+  if "${sec_cmd[@]}"; then
+    sec_status="PASS"
+    log_ok "Security audit completed."
+  else
+    sec_status="FAIL"
+    log_err "Security audit returned non-zero."
+  fi
+
+  log_info "Step 3/4: Implementation Safety"
   if "${safe_cmd[@]}"; then
     safe_status="PASS"
     log_ok "Implementation safety completed."
@@ -390,7 +405,7 @@ else
     log_err "Implementation safety returned non-zero."
   fi
 
-  log_info "Step 3/3: Quality Gates"
+  log_info "Step 4/4: Quality Gates"
   if "${gates_cmd[@]}"; then
     gates_status="PASS"
     log_ok "Quality gates completed."
@@ -401,9 +416,9 @@ else
 fi
 
 overall="PASS"
-if [ "$gems_status" = "FAIL" ] || [ "$diag_status" = "FAIL" ] || [ "$safe_status" = "FAIL" ] || [ "$gates_status" = "FAIL" ]; then
+if [ "$gems_status" = "FAIL" ] || [ "$diag_status" = "FAIL" ] || [ "$sec_status" = "FAIL" ] || [ "$safe_status" = "FAIL" ] || [ "$gates_status" = "FAIL" ]; then
   overall="FAIL"
-elif [ "$gems_status" = "WARN" ] || [ "$gems_status" = "SKIPPED" ] || [ "$diag_status" = "NOT_RUN" ] || [ "$safe_status" = "NOT_RUN" ] || [ "$gates_status" = "NOT_RUN" ]; then
+elif [ "$gems_status" = "WARN" ] || [ "$gems_status" = "SKIPPED" ] || [ "$diag_status" = "NOT_RUN" ] || [ "$sec_status" = "NOT_RUN" ] || [ "$safe_status" = "NOT_RUN" ] || [ "$gates_status" = "NOT_RUN" ]; then
   overall="WARN"
 fi
 
@@ -434,6 +449,7 @@ fi
   echo "  - Installed/Planned: $FRAMEWORK_GEMS_INSTALL_COUNT"
   echo "  - Failed: $FRAMEWORK_GEMS_FAIL_COUNT"
   echo "- Diagnose: $diag_status ([report]($(basename "$DIAG_REPORT")))"
+  echo "- Security Audit: $sec_status ([report]($(basename "$SEC_REPORT")))"
   echo "- Implementation Safety: $safe_status ([report]($(basename "$SAFE_REPORT")))"
   echo "- Quality Gates: $gates_status ([report]($(basename "$GATES_REPORT")))"
   echo
@@ -441,8 +457,9 @@ fi
   echo
   echo "1. $GEMS_REPORT"
   echo "2. $DIAG_REPORT"
-  echo "3. $SAFE_REPORT"
-  echo "4. $GATES_REPORT"
+  echo "3. $SEC_REPORT"
+  echo "4. $SAFE_REPORT"
+  echo "5. $GATES_REPORT"
   echo
   echo "## Change Log"
   echo
@@ -457,6 +474,7 @@ printf "  - Gems already present: %s\n" "$FRAMEWORK_GEMS_PRESENT_COUNT"
 printf "  - Gems installed/plan:  %s\n" "$FRAMEWORK_GEMS_INSTALL_COUNT"
 printf "  - Gems failed install:  %s\n" "$FRAMEWORK_GEMS_FAIL_COUNT"
 printf "  - Diagnose:             %s\n" "$diag_status"
+printf "  - Security audit:       %s\n" "$sec_status"
 printf "  - Implementation safety:%s\n" "$safe_status"
 printf "  - Quality gates:        %s\n" "$gates_status"
 printf "  - Overall:              %s\n" "$overall"
