@@ -9,6 +9,16 @@ description: Defines the operating framework for AI-assisted Ruby on Rails devel
 
 Use this skill as the top-level operating system for Rails work. It standardizes how requests are analyzed, implemented, verified, and improved.
 
+## Execution Default (Required)
+
+When this skill is invoked in Claude/Codex and shell execution is available, execute the workflow script first from the Rails app root unless the user explicitly asks for inspect-only output:
+
+1. `bash /Users/abrahamkuri/workspace/workspace/rails skills/rails-framework/scripts/run_framework_workflow.sh --project-dir "$PWD" --mode strict --gemset full`
+2. If LSP is required: add `--require-lsp`.
+3. If user asks no changes: use `--gem-dry-run` or `--no-auto-install-gems`.
+
+Do not claim framework execution is complete without showing the generated summary path (`tmp/rails-framework-workflow-*/00-summary.md`).
+
 ## LSP Recommendation
 
 Strongly recommend enabling LSP before running this skill:
@@ -29,6 +39,8 @@ Use one of these prompts when invoking this skill in Claude.
    `Use rails-framework. Run Inspect -> Diagnose -> Design -> Implement -> Verify -> Improve for this project. Implement only the top 2 high-impact fixes and summarize residual risks.`
 3. Release readiness:
    `Use rails-framework for pre-release hardening. Focus on performance, security, migrations, and test reliability. Return blockers, fixes, alternatives, and rollback notes.`
+4. Force execution (recommended):
+   `Use rails-framework and execute the framework workflow script immediately against the current project. Then return the summary report and key findings.`
 
 When asking for a full inspection, always include:
 

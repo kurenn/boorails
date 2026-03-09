@@ -63,7 +63,7 @@ log_err() { printf "%b[FAIL]%b %s\n" "$C_ERR" "$C_RESET" "$1"; }
 
 gem_declared() {
   local gem_name="$1"
-  if grep -Eq "^[[:space:]]*gem[[:space:]]+['\"]${gem_name}['\"]" "$PROJECT_DIR/Gemfile" 2>/dev/null; then
+  if grep -Eq "^[[:space:]]*gem[[:space:]]*\\(?[[:space:]]*['\"]${gem_name}['\"]" "$PROJECT_DIR/Gemfile" 2>/dev/null; then
     return 0
   fi
   if [ -f "$PROJECT_DIR/Gemfile.lock" ] && grep -Eq "^[[:space:]]{4}${gem_name}([[:space:]]|\\()" "$PROJECT_DIR/Gemfile.lock" 2>/dev/null; then

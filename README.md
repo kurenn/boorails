@@ -50,6 +50,14 @@ Run local smoke checks before release:
 rails-framework/scripts/run_framework_workflow.sh --project-dir /path/to/rails-app --require-lsp
 ```
 
+If you trigger `/rails-framework` inside Claude/Codex, explicitly ask it to execute the script (not just reason from instructions):
+
+```text
+Use rails-framework and run:
+bash "/Users/abrahamkuri/workspace/workspace/rails skills/rails-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp
+Then show tmp/rails-framework-workflow-*/00-summary.md
+```
+
 By default, `rails-framework` auto-installs missing framework gems before executing Diagnose/Safety/Gates.
 
 - Default gemset (`full`): `rubocop`, `rubocop-rails`, `brakeman`, `rspec-rails`, `rubocop-rspec`, `bullet`, `strong_migrations`, `ruby-lsp`
