@@ -89,34 +89,33 @@
           <p class="kicker">RUN BOOK</p>
           <h2>HOW TO RUN BOORAILS</h2>
           <p>
-            Use these exact steps. If you only type <code>/rails-framework</code> without script execution, you may only load instructions.
+            Install once, then run skills from Claude/Codex using slash commands.
           </p>
         </div>
         <div class="stack-list">
           <div data-reveal>
-            <p class="command">STEP 1 // INSTALL OR UPDATE</p>
+            <p class="command">STEP 1 // INSTALL (ONE LINER)</p>
             <div class="cmd-box">
               <code id="cmd-install-update">bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; "$REPO"/update_skills.sh --repo-dir "$REPO"'</code>
               <button class="copy-btn" type="button" data-copy-target="cmd-install-update" aria-label="Copy install/update command" title="Copy command">⧉</button>
             </div>
           </div>
           <div data-reveal>
-            <p class="command">STEP 2 // OPEN RAILS ROOT</p>
+            <p class="command">STEP 2 // USE IN CLAUDE OR CODEX</p>
             <div class="cmd-box">
-              <code id="cmd-open-root">cd /path/to/your/rails_app && export ENABLE_LSP_TOOL=1</code>
-              <button class="copy-btn" type="button" data-copy-target="cmd-open-root" aria-label="Copy rails root command" title="Copy command">⧉</button>
+              <code id="cmd-slash-usage">/rails-framework
+/rails-security
+/rails-diagnose
+/rails-quality-gates
+/rails-implementation-safety
+/rails-alternatives
+/rails-fun-dx</code>
+              <button class="copy-btn" type="button" data-copy-target="cmd-slash-usage" aria-label="Copy slash command usage" title="Copy command">⧉</button>
             </div>
           </div>
           <div data-reveal>
-            <p class="command">STEP 3 // RUN FRAMEWORK SCRIPT</p>
-            <div class="cmd-box">
-              <code id="cmd-run-framework">bash "$HOME/.boorails/rails-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp</code>
-              <button class="copy-btn" type="button" data-copy-target="cmd-run-framework" aria-label="Copy framework run command" title="Copy command">⧉</button>
-            </div>
-          </div>
-          <div data-reveal>
-            <p class="command">STEP 4 // VERIFY OUTPUT</p>
-            <p>Look for <code>Execution Summary (Framework Workflow)</code> and verify <code>02-security.md</code>, <code>03-safety.md</code>, and <code>04-quality-gates.md</code> in <code>tmp/rails-framework-workflow-*/</code>.</p>
+            <p class="command">NOTE</p>
+            <p>Run Claude/Codex from your Rails project root for best results.</p>
           </div>
         </div>
       </section>
