@@ -61,9 +61,9 @@ bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git 
 ./update_skills.sh
 ```
 
-## Run Skills (Clear Path)
+## Use Skills in Claude/Codex
 
-### 1) Open your Rails app root
+### 1) Start from your Rails app root
 
 ```bash
 cd /path/to/your/rails_app
@@ -75,46 +75,39 @@ cd /path/to/your/rails_app
 export ENABLE_LSP_TOOL=1
 ```
 
-Optional preflight:
-
-```bash
-bash "$HOME/.boorails/scripts/check_lsp_env.sh" --required
-```
-
-### 3) In Claude/Codex, run this prompt
-
-> `/rails-framework` alone loads instructions; it may not execute scripts by itself.
-> Use this prompt to force execution:
+### 3) Run slash commands
 
 ```text
-Use rails-framework and run:
-bash "$HOME/.boorails/rails-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp
-Then show the generated tmp/rails-framework-workflow-*/00-summary.md path and key findings.
+/rails-framework
+/rails-security
+/rails-diagnose
+/rails-quality-gates
+/rails-implementation-safety
+/rails-alternatives
+/rails-fun-dx
 ```
 
-### 4) Terminal-only (no chat prompt)
+Most common entrypoint: `/rails-framework`
+
+### 4) What success looks like for `/rails-framework`
+
+Open:
+
+- `tmp/rails-framework-workflow-<timestamp>/00-summary.md`
+
+It links to:
+
+- `00-framework-gems.md`
+- `01-diagnose.md`
+- `02-security.md`
+- `03-safety.md`
+- `04-quality-gates.md`
+
+### Optional: Run framework script directly from terminal
 
 ```bash
 bash "$HOME/.boorails/rails-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp
 ```
-
-### 5) What success looks like
-
-Outputs are written to:
-
-- `tmp/rails-framework-workflow-<timestamp>/00-framework-gems.md`
-- `tmp/rails-framework-workflow-<timestamp>/01-diagnose.md`
-- `tmp/rails-framework-workflow-<timestamp>/02-security.md`
-- `tmp/rails-framework-workflow-<timestamp>/03-safety.md`
-- `tmp/rails-framework-workflow-<timestamp>/04-quality-gates.md`
-- `tmp/rails-framework-workflow-<timestamp>/00-summary.md`
-
-You should also see this block in console:
-
-- `Execution Summary (Framework Workflow)`
-- `Gem bootstrap`
-- `Gem target count / present / installed / failed`
-- `Diagnose / Security audit / Implementation safety / Quality gates / Overall`
 
 ## Run Individual Skills (Optional)
 
