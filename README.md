@@ -41,13 +41,6 @@ claude plugin install boorails@kurenn              # one-time install
 
 After install, restart your Claude Code session and the seven `/boo-*` skills appear in the slash menu.
 
-To pull updates:
-
-```bash
-claude plugin marketplace update kurenn
-claude plugin update boorails
-```
-
 ### Local plugin dir (development)
 
 ```bash
@@ -58,6 +51,38 @@ claude --plugin-dir ~/workspace/boorails
 ### Legacy install (pre-2.0)
 
 If you were using the manual shell-script install (`install_skills_codex_claude.sh`) and want to stay on it, those scripts are still in `legacy/`. They install the OLD `rails-*` skill names from the v0.2.0 tag. New work should switch to the marketplace install above.
+
+## Updating
+
+When a new version is released, pull it via the marketplace:
+
+```bash
+# Refresh the marketplace cache (picks up new versions from marketplace.json)
+claude plugin marketplace update kurenn
+
+# Update boorails to the latest released version
+claude plugin update boorails
+```
+
+Restart your Claude Code session after updating so the slash menu picks up the new version.
+
+Verify which version you're on:
+
+```bash
+claude plugin list | grep -A3 boorails@kurenn
+```
+
+To pin to a specific older version (e.g. roll back to the pre-rename `rails-*` skills on v0.2.0), clone the tag locally:
+
+```bash
+# v0.2.0 (legacy rails-* skill names — non-plugin install via shell scripts)
+git clone https://github.com/kurenn/boorails --branch v0.2.0 ~/.boorails
+~/.boorails/legacy/install_skills_codex_claude.sh --target both --force
+
+# v2.0.0+ (new boo-* skill names via plugin)
+git clone https://github.com/kurenn/boorails --branch v2.0.0 ~/workspace/boorails-2.0.0
+claude --plugin-dir ~/workspace/boorails-2.0.0
+```
 
 ## Use the skills
 
