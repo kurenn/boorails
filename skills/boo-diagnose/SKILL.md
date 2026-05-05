@@ -1,5 +1,5 @@
 ---
-name: rails-diagnose
+name: boo-diagnose
 description: Performs root-cause diagnosis for Ruby on Rails issues across performance, correctness, architecture, security, and reliability. Use when requests involve bugs, regressions, N+1 queries, slow endpoints, flaky tests, unexpected behavior, or unclear failures. Triggers on words like diagnose, debug, investigate, root cause, slowdown, flaky, regression, N+1, timeout.
 ---
 

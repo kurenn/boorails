@@ -1,5 +1,5 @@
 ---
-name: rails-framework
+name: boo-framework
 description: Defines the operating framework for AI-assisted Ruby on Rails development. Use when planning architecture, framing implementation strategy, creating multi-step workflows, coordinating specialized Rails skills, or aligning a team on a consistent delivery model. Triggers on requests like framework definition, implementation workflow, Rails standards, feature planning, or system-level guidance.
 ---
 
@@ -13,7 +13,7 @@ Use this skill as the top-level operating system for Rails work. It standardizes
 
 When this skill is invoked in Claude/Codex and shell execution is available, execute the workflow script first from the Rails app root unless the user explicitly asks for inspect-only output:
 
-1. `bash /Users/abrahamkuri/workspace/workspace/rails skills/rails-framework/scripts/run_framework_workflow.sh --project-dir "$PWD" --mode strict --gemset full`
+1. `bash ${CLAUDE_PLUGIN_ROOT}/skills/boo-framework/scripts/run_framework_workflow.sh --project-dir "$PWD" --mode strict --gemset full`
 2. If LSP is required: add `--require-lsp`.
 3. If user asks no changes: use `--gem-dry-run` or `--no-auto-install-gems`.
 
@@ -34,13 +34,13 @@ If LSP is not enabled, continue execution but mark reduced confidence for symbol
 Use one of these prompts when invoking this skill in Claude.
 
 1. Whole-project inspection:
-   `Use rails-framework. Inspect the whole Rails project first (app/, config/, db/, lib/, spec/) and return: architecture map, top risks, and prioritized next actions. Do not implement yet.`
+   `Use boo-framework. Inspect the whole Rails project first (app/, config/, db/, lib/, spec/) and return: architecture map, top risks, and prioritized next actions. Do not implement yet.`
 2. Inspection + implementation:
-   `Use rails-framework. Run Inspect -> Diagnose -> Design -> Implement -> Verify -> Improve for this project. Implement only the top 2 high-impact fixes and summarize residual risks.`
+   `Use boo-framework. Run Inspect -> Diagnose -> Design -> Implement -> Verify -> Improve for this project. Implement only the top 2 high-impact fixes and summarize residual risks.`
 3. Release readiness:
-   `Use rails-framework for pre-release hardening. Focus on performance, security, migrations, and test reliability. Return blockers, fixes, alternatives, and rollback notes.`
+   `Use boo-framework for pre-release hardening. Focus on performance, security, migrations, and test reliability. Return blockers, fixes, alternatives, and rollback notes.`
 4. Force execution (recommended):
-   `Use rails-framework and execute the framework workflow script immediately against the current project. Then return the summary report and key findings.`
+   `Use boo-framework and execute the framework workflow script immediately against the current project. Then return the summary report and key findings.`
 
 When asking for a full inspection, always include:
 
@@ -85,12 +85,12 @@ Always end execution with:
 
 Use specialized skills when needed:
 
-1. Root-cause unclear: invoke `rails-diagnose`.
-2. Deep appsec review needed: invoke `rails-security`.
-3. Release readiness needed: invoke `rails-quality-gates`.
-4. Security/data safety concerns: invoke `rails-implementation-safety`.
-5. Architectural choice needed: invoke `rails-alternatives`.
-6. Developer friction or slow loop: invoke `rails-fun-dx`.
+1. Root-cause unclear: invoke `boo-diagnose`.
+2. Deep appsec review needed: invoke `boo-security`.
+3. Release readiness needed: invoke `boo-quality`.
+4. Security/data safety concerns: invoke `boo-safety`.
+5. Architectural choice needed: invoke `boo-alternatives`.
+6. Developer friction or slow loop: invoke `boo-dx`.
 
 ## Scripted Orchestration
 
@@ -121,10 +121,10 @@ Extended (`--gemset full`, default):
 
 The workflow executes:
 
-1. `rails-diagnose/scripts/run_diagnose.sh`
-2. `rails-security/scripts/run_security_audit.sh`
-3. `rails-implementation-safety/scripts/safety_check.sh`
-4. `rails-quality-gates/scripts/run_gates.sh`
+1. `boo-diagnose/scripts/run_diagnose.sh`
+2. `boo-security/scripts/run_security_audit.sh`
+3. `boo-safety/scripts/safety_check.sh`
+4. `boo-quality/scripts/run_gates.sh`
 
 Outputs are written to `tmp/rails-framework-workflow-<timestamp>/` with per-step reports and a consolidated summary.
 

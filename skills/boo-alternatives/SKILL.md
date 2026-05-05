@@ -1,5 +1,5 @@
 ---
-name: rails-alternatives
+name: boo-alternatives
 description: Generates and compares implementation alternatives for Ruby on Rails decisions. Use when choosing between architectural approaches, query patterns, service boundaries, framework features, or rollout strategies. Triggers on alternatives, tradeoffs, option A/B, design choice, compare approaches, or should we use X vs Y.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: rails-security
+name: boo-security
 description: Deep security workflow for Ruby on Rails applications. Use when auditing or implementing controls for XSS, SQL injection, CSRF, file uploads, command injection, session/cookie hardening, and security monitoring. Triggers on appsec audit, security review, OWASP, CSP, CSRF, upload hardening, or secure coding requests.
 ---
 
@@ -13,9 +13,9 @@ Use this skill for focused application security work in Rails. It complements br
 
 When shell execution is available and the user does not request inspect-only output, run:
 
-1. `bash /Users/abrahamkuri/workspace/workspace/rails skills/rails-security/scripts/run_security_audit.sh --project-dir "$PWD" --mode strict`
+1. `bash ${CLAUDE_PLUGIN_ROOT}/skills/boo-security/scripts/run_security_audit.sh --project-dir "$PWD" --mode strict`
 2. Add `--require-lsp` when symbol-level confidence is required.
-3. For non-mutating audits, pair with `rails-framework` in inspect/advisory mode.
+3. For non-mutating audits, pair with `boo-framework` in inspect/advisory mode.
 
 Do not claim completion without reporting the generated summary path: `tmp/rails-security-*/00-summary.md`.
 

@@ -154,7 +154,7 @@ if [ "${ENABLE_LSP_TOOL:-0}" != "1" ]; then
 fi
 
 RUN_ID="$(date +%Y%m%d-%H%M%S)"
-LOG_DIR="${PROJECT_DIR}/tmp/rails-quality-gates-${RUN_ID}"
+LOG_DIR="${PROJECT_DIR}/tmp/boo-quality-${RUN_ID}"
 mkdir -p "$LOG_DIR"
 log_info "Logs: $LOG_DIR"
 

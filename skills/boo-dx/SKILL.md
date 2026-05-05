@@ -1,5 +1,5 @@
 ---
-name: rails-fun-dx
+name: boo-dx
 description: Optimizes developer experience in Ruby on Rails workflows without compromising safety or quality. Use when teams face slow feedback loops, repetitive tasks, unclear errors, onboarding friction, or low development flow. Triggers on DX, developer productivity, faster feedback, workflow friction, onboarding, and ergonomics.
 ---
 

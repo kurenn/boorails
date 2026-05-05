@@ -1,67 +1,65 @@
 # BooRails
 
-Script-first Ruby on Rails skills for safer shipping, faster diagnosis, and cleaner delivery.
+Script-first Ruby on Rails skills for safer shipping, faster diagnosis, and cleaner delivery — packaged as a [Claude Code](https://claude.ai/code) plugin.
 
-> **Quick start (install):**
-> `bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; git -C "$REPO" pull --ff-only origin main; "$REPO"/install_skills_codex_claude.sh --target both --force'`
+Seven `boo-*` skills covering the Rails dev lifecycle from design to release. Each skill ships an executable script for deterministic execution and a SKILL.md that orchestrates the workflow inside Claude Code or Codex.
 
 ## Why BooRails?
 
-Most AI workflows stop at suggestions. BooRails is built to execute the Rails workflow end-to-end and return evidence.
+Most AI workflows stop at suggestions. BooRails executes the Rails workflow end-to-end and returns evidence.
 
-- Script-first framework execution (`Diagnose -> Security -> Safety -> Quality Gates`)
+- Script-first framework execution (`Diagnose → Security → Safety → Quality Gates`)
 - Explicit execution summary and report files
 - Gem bootstrap feedback (target/present/installed/failed)
 - LSP-aware guidance for stronger symbol-level analysis
 
-## What's Included
+## What's included
 
-### Core Framework
+### Core orchestrator
 
-- `rails-framework`: orchestrates workflow, gem bootstrap, and consolidated summary.
+- **`/boo-framework`** — orchestrates the full workflow, runs gem bootstrap, and produces a consolidated summary report.
 
-### 6 Supporting Skills
+### Six focused skills
 
 | Skill | What it does |
-|------|---------------|
-| `rails-diagnose` | Root-cause heuristics for reliability/performance smells |
-| `rails-security` | Deep appsec audit for XSS/SQLi/CSRF/uploads/command risks |
-| `rails-implementation-safety` | Safety checks for risky patterns and migrations |
-| `rails-quality-gates` | Tests/lint/security/smoke gates with pass/warn/fail |
-| `rails-alternatives` | Structured option/tradeoff evaluation |
-| `rails-fun-dx` | Developer experience and loop-speed improvements |
+|---|---|
+| `/boo-diagnose` | Root-cause heuristics for reliability/performance smells |
+| `/boo-security` | Deep appsec audit for XSS/SQLi/CSRF/uploads/command risks |
+| `/boo-safety` | Implementation safety checks for risky patterns and migrations |
+| `/boo-quality` | Tests/lint/security/smoke gates with pass/warn/fail |
+| `/boo-alternatives` | Structured option/tradeoff evaluation |
+| `/boo-dx` | Developer experience and loop-speed improvements |
 
-## Installation
+## Install
 
-### One-liner (Recommended)
-
-```bash
-bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; git -C "$REPO" pull --ff-only origin main; "$REPO"/install_skills_codex_claude.sh --target both --force'
-```
-
-### Manual
+### Recommended — via the kurenn marketplace
 
 ```bash
-git clone https://github.com/kurenn/boorails.git "$HOME/.boorails"
-cd "$HOME/.boorails"
-./install_skills_codex_claude.sh --target both --force
+claude plugin marketplace add kurenn/marketplace   # one-time per user
+claude plugin install boorails@kurenn              # one-time install
 ```
 
-## Update
+After install, restart your Claude Code session and the seven `/boo-*` skills appear in the slash menu.
 
-### One-liner update (pull + reinstall)
+To pull updates:
 
 ```bash
-bash -lc 'set -euo pipefail; REPO="$HOME/.boorails"; [ -d "$REPO/.git" ] || git clone https://github.com/kurenn/boorails.git "$REPO"; "$REPO"/update_skills.sh --repo-dir "$REPO"'
+claude plugin marketplace update kurenn
+claude plugin update boorails
 ```
 
-### Local update command
+### Local plugin dir (development)
 
 ```bash
-./update_skills.sh
+git clone https://github.com/kurenn/boorails ~/workspace/boorails
+claude --plugin-dir ~/workspace/boorails
 ```
 
-## Use Skills in Claude/Codex
+### Legacy install (pre-2.0)
+
+If you were using the manual shell-script install (`install_skills_codex_claude.sh`) and want to stay on it, those scripts are still in `legacy/`. They install the OLD `rails-*` skill names from the v0.2.0 tag. New work should switch to the marketplace install above.
+
+## Use the skills
 
 ### 1) Start from your Rails app root
 
@@ -75,21 +73,21 @@ cd /path/to/your/rails_app
 export ENABLE_LSP_TOOL=1
 ```
 
-### 3) Run slash commands
+### 3) In a Claude Code session, run a slash command
 
-```text
-/rails-framework
-/rails-security
-/rails-diagnose
-/rails-quality-gates
-/rails-implementation-safety
-/rails-alternatives
-/rails-fun-dx
+```
+/boo-framework
+/boo-security
+/boo-diagnose
+/boo-quality
+/boo-safety
+/boo-alternatives
+/boo-dx
 ```
 
-Most common entrypoint: `/rails-framework`
+Most common entrypoint: `/boo-framework`.
 
-### 4) What success looks like for `/rails-framework`
+### 4) What success looks like for `/boo-framework`
 
 Open:
 
@@ -103,38 +101,43 @@ It links to:
 - `03-safety.md`
 - `04-quality-gates.md`
 
-### Optional: Run framework script directly from terminal
+### Optional — run scripts directly from terminal
+
+After plugin install, the scripts live under your Claude plugins cache. From any Rails app root:
 
 ```bash
-bash "$HOME/.boorails/rails-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp
+PLUGIN=~/.claude/plugins/cache/kurenn/boorails/2.0.0
+bash "$PLUGIN/skills/boo-framework/scripts/run_framework_workflow.sh" --project-dir "$PWD" --mode strict --gemset full --require-lsp
+bash "$PLUGIN/skills/boo-diagnose/scripts/run_diagnose.sh" --project-dir "$PWD" --require-lsp
+bash "$PLUGIN/skills/boo-security/scripts/run_security_audit.sh" --project-dir "$PWD" --require-lsp
+bash "$PLUGIN/skills/boo-safety/scripts/safety_check.sh" --project-dir "$PWD" --require-lsp
+bash "$PLUGIN/skills/boo-quality/scripts/run_gates.sh" --project-dir "$PWD" --require-lsp
 ```
 
-## Run Individual Skills (Optional)
-
-```bash
-bash "$HOME/.boorails/rails-diagnose/scripts/run_diagnose.sh" --project-dir "$PWD" --require-lsp
-bash "$HOME/.boorails/rails-security/scripts/run_security_audit.sh" --project-dir "$PWD" --require-lsp
-bash "$HOME/.boorails/rails-implementation-safety/scripts/safety_check.sh" --project-dir "$PWD" --require-lsp
-bash "$HOME/.boorails/rails-quality-gates/scripts/run_gates.sh" --project-dir "$PWD" --require-lsp
-```
-
-## Gem Bootstrap Modes
+## Gem bootstrap modes
 
 - Default: installs missing gems (`--gemset full`)
 - Core-only: `--gemset minimal`
 - Dry-run only: `--gem-dry-run`
 - Disable install: `--no-auto-install-gems`
 
-## Smoke Checks
+## Smoke checks
 
 ```bash
 ./scripts/ci_smoke.sh
 ```
 
-## Supported Tools
+## Supported tools
 
 - Claude Code
-- Codex
+- Codex (via the legacy install path)
+
+## Migrating from v0.2.x
+
+If you've been using boorails via `install_skills_codex_claude.sh`, the slash commands you've been using (`/rails-security`, `/rails-framework`, etc.) no longer exist under those names in 2.0. Two options:
+
+1. **Switch to the marketplace install** (recommended) — see CHANGELOG.md for the full migration table.
+2. **Stay on v0.2** — `git checkout v0.2.0` and run the legacy install script. The old `rails-*` skill names still work on that tag.
 
 ## License
 

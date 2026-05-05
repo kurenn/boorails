@@ -1,5 +1,5 @@
 ---
-name: rails-quality-gates
+name: boo-quality
 description: Runs and interprets quality gates for Ruby on Rails delivery. Use when validating PR readiness, release safety, or implementation quality across tests, linting, security, and performance checks. Triggers on quality gate, readiness, release check, CI parity, lint, test suite, security scan, or pre-merge validation.
 ---
 
@@ -53,7 +53,7 @@ Use the bundled script for repeatable gate runs:
 Default behavior:
 
 1. Runs syntax/autoload, lint, tests, security, and optional performance smoke.
-2. Persists logs in `tmp/rails-quality-gates-<timestamp>/`.
+2. Persists logs in `tmp/boo-quality-<timestamp>/`.
 3. Produces `PASS`, `WARN`, or `FAIL` overall summary.
 
 Use `--output-file <path>` to persist a markdown report for PR or release notes.

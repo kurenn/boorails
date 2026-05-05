@@ -286,10 +286,10 @@ PROJECT_DIR="$(cd "$PROJECT_DIR" && pwd)"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILLS_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-DIAG_SCRIPT="$SKILLS_ROOT/rails-diagnose/scripts/run_diagnose.sh"
-SEC_SCRIPT="$SKILLS_ROOT/rails-security/scripts/run_security_audit.sh"
-SAFE_SCRIPT="$SKILLS_ROOT/rails-implementation-safety/scripts/safety_check.sh"
-GATES_SCRIPT="$SKILLS_ROOT/rails-quality-gates/scripts/run_gates.sh"
+DIAG_SCRIPT="$SKILLS_ROOT/boo-diagnose/scripts/run_diagnose.sh"
+SEC_SCRIPT="$SKILLS_ROOT/boo-security/scripts/run_security_audit.sh"
+SAFE_SCRIPT="$SKILLS_ROOT/boo-safety/scripts/safety_check.sh"
+GATES_SCRIPT="$SKILLS_ROOT/boo-quality/scripts/run_gates.sh"
 
 for required in "$DIAG_SCRIPT" "$SEC_SCRIPT" "$SAFE_SCRIPT" "$GATES_SCRIPT"; do
   if [ ! -f "$required" ]; then

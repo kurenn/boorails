@@ -1,0 +1,15 @@
+{
+  "name": "boorails",
+  "version": "2.0.0",
+  "description": "Rails-specific Claude Code skills for security, quality gates, implementation safety, root-cause diagnosis, framework operating mode, developer experience, and architectural alternatives. Seven boo-* skills covering the Rails dev lifecycle from design to release.",
+  "author": {
+    "name": "Abraham Kuri",
+    "email": "abkuri88@gmail.com",
+    "url": "https://github.com/kurenn"
+  },
+  "homepage": "https://kurenn.github.io/boorails/",
+  "repository": "https://github.com/kurenn/boorails",
+  "license": "MIT",
+  "keywords": ["rails", "ruby", "security", "audit", "quality-gates", "claude-code"],
+  "skills": "./skills"
+}

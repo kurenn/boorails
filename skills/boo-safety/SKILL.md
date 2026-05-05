@@ -1,5 +1,5 @@
 ---
-name: rails-implementation-safety
+name: boo-safety
 description: Applies implementation safety checklists for Ruby on Rails code changes. Use when writing or reviewing code that touches user input, authorization, database migrations, background jobs, external APIs, or production-critical paths. Triggers on secure, safe migration, pre-merge checklist, rollout risk, data integrity, and production hardening.
 ---
 
